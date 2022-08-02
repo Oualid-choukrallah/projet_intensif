@@ -1,7 +1,7 @@
 from textblob import TextBlob
 from textblob_fr import PatternTagger, PatternAnalyzer
 import pandas as pd
-
+import plotly.express as px
 
 list_analysis_content = []
 list_analysis_response = []
@@ -33,6 +33,9 @@ data["Prediciton_average"] = (data["Sentiment_rating_response"] + data["Sentimen
 data["Rating"] = data["Rating"]//2
 data = data.sort_values(by=["Prediciton_average"], ascending=False)
 data.to_csv('final_results.csv', index=False)
+fig = px.line(data[data["Business Code"] == 1440], x='Creation date', y=["Prediciton_average"])
+fig.update_xaxes(showgrid=False)
+fig.update_yaxes(showgrid=False)
 print(data["Prediciton_average"].head())
 
 
